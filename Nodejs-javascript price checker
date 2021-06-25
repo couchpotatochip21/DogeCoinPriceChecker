@@ -1,0 +1,19 @@
+// Import coingecko-api
+const CoinGecko = require('coingecko-api');
+ 
+const api = new CoinGecko();
+
+async function getDogePrice()
+{
+  let e = await api.coins.fetch('dogecoin', {})
+  return e.data.market_data.current_price.usd
+}
+
+let price = getDogePrice()
+
+if(price == 1)
+{
+  console.log("moon!!")
+} else {
+  console.log("no moon!!")
+}
