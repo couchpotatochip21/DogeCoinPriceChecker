@@ -1,0 +1,25 @@
+const CoinGecko = require('coingecko-api');
+const api = new CoinGecko();
+
+async function getDogePrice()
+{
+  let e = await api.coins.fetch('dogecoin', {})
+  return e.data.market_data.current_price.usd
+}
+
+const Discord = require('discord.js');
+const client = new Discord.Client();
+
+client.on('ready', () => {
+        console.log(`Logged in as ${client.user.tag}!`);
+});
+
+client.on('interaction', async interaction => {
+        if (!interaction.isCommand()) return;
+        if (interaction.commandName === 'dogecoin') {
+                await interaction.reply('Dogecoin Price: ' + getDogePrice());
+        }
+});
+
+client.login('token');
+// IMPORTANT the command is "dogecoin"
